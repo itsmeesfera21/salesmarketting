@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils import timezone
+from django.template.defaultfilters import slugify
 
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User')
+    slug = models.CharField(max_length=150, unique=True)
     title = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(
@@ -17,5 +19,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self):
+        super(Post, self).save()
+        #date = datetime.date.today()
+        self.slug = '%s'%(slugify(self.title))
+        super(Post, self).save()
 
 # Create your models here.
