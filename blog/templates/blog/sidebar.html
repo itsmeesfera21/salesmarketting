@@ -1,0 +1,7 @@
+{% block sidebar %} 
+    <ul class="test">
+    {% for category in categories %}
+    <li> <a href="{% url 'post_category' pk=category.id%}"> {{category.name}}</a></li>
+    {% endfor %}
+    </ul>
+ {% endblock %} 
