@@ -44,7 +44,7 @@ def post_list(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         posts = paginator.page(paginator.num_pages)
-    print posts
+    #print posts
     return render(request, 'blog/post_list.html', {'posts': posts,"categories":categories})
 
 
