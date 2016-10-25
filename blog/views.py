@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 def post_category(request,pk):
     posts = Post.objects.filter(category_id=pk).order_by('published_date')
     categories=Category.objects.all()
-    print "*****",categories
+    #print "*****",categories
     paginator = Paginator(posts, 2)
     page = request.GET.get('page')
     try:
@@ -24,7 +24,7 @@ def post_category(request,pk):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         posts = paginator.page(paginator.num_pages)
-    print posts
+    #print posts
     return render(request, 'blog/post_list.html', {'posts': posts,"categories":categories})
 
 def post_categories(request):
@@ -33,7 +33,7 @@ def post_categories(request):
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     categories=Category.objects.all()
-    print "*****",categories
+    #print "*****",categories
     paginator = Paginator(posts, 2)
     page = request.GET.get('page')
     try:
@@ -50,7 +50,7 @@ def post_list(request):
 
 def post_all(request):
     posts = Post.objects.all()
-    print posts
+    #print posts
     postss=[]
     for post in posts:
     	postss.append({"title":post.title,"author":post.author_id})
@@ -61,11 +61,11 @@ def post_all(request):
 def post_new(request):
     if request.method == "POST":
         form = PostForm(request.POST)
-        print request.POST
+        #print request.POST
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
-            print  request.user
+            #print  request.user
             #post.published_date = timezone.now()
             #post.slug='%s'%(slugify(request.POST))
             post.save()
@@ -107,7 +107,7 @@ def post_edit(request, slug):
 
 
 def post_detail(request, slug):
-	print slug
+	#print slug
 	slug=slug.split(".")[0]
 	post = get_object_or_404(Post, slug=slug)
 	return render(request, 'blog/post_detail.html', {'post': post})    

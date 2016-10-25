@@ -151,4 +151,7 @@ ALLOWED_HOSTS = ['*']
 
 DEBUG = False
 
-
+try:
+    from .local_settings import *
+except Exception as e:
+    print e
